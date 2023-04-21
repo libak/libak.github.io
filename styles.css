@@ -1,0 +1,11 @@
+.container {
+    display: flex; /* or inline-flex */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+}
+
+.container div {
+    width: 600px;
+}
