@@ -6,6 +6,11 @@
     padding-bottom: 50px;
 }
 
+h5 {
+    font-size: 1em;
+    margin-bottom: 0;
+}
+
 .container div {
     width: 600px;
 }
