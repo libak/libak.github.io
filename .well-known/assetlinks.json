@@ -20,7 +20,8 @@
       "namespace": "android_app",
       "package_name": "com.libak.minel.debug",
       "sha256_cert_fingerprints": [
-        "F1:02:14:95:D9:DE:DF:04:22:12:18:17:E2:EC:ED:13:DE:18:DF:73:A9:17:B8:C2:AE:C1:68:1E:29:AA:90:95"
+        "F1:02:14:95:D9:DE:DF:04:22:12:18:17:E2:EC:ED:13:DE:18:DF:73:A9:17:B8:C2:AE:C1:68:1E:29:AA:90:95",
+        "E9:05:7A:B3:DC:1B:A5:C2:D0:FD:80:79:47:E3:B3:6A:E3:FB:AA:81:03:B1:70:A1:30:90:A7:ED:C7:0C:A4:CD"
       ]
     }
   }
