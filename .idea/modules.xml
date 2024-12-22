@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/libak.github.io.iml" filepath="$PROJECT_DIR$/.idea/libak.github.io.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/weather-frontend-app.iml" filepath="$PROJECT_DIR$/.idea/weather-frontend-app.iml" />
     </modules>
   </component>
 </project>
