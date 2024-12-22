@@ -1,0 +1,28 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.libak.minel",
+      "sha256_cert_fingerprints": [
+        "CB:71:64:6E:BC:82:44:8F:31:FB:DF:51:0E:8F:C0:A4:AD:12:F1:1C:B9:4B:BB:8E:CD:E0:6B:36:EC:70:17:AF",
+        "2B:C2:37:6C:3C:F3:BA:31:7E:DD:43:66:02:62:DE:B3:F4:40:50:36:23:A0:96:A4:6C:CA:B6:90:73:F2:88:98"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.libak.minel.debug",
+      "sha256_cert_fingerprints": [
+        "F1:02:14:95:D9:DE:DF:04:22:12:18:17:E2:EC:ED:13:DE:18:DF:73:A9:17:B8:C2:AE:C1:68:1E:29:AA:90:95",
+        "E9:05:7A:B3:DC:1B:A5:C2:D0:FD:80:79:47:E3:B3:6A:E3:FB:AA:81:03:B1:70:A1:30:90:A7:ED:C7:0C:A4:CD"
+      ]
+    }
+  }
+]
