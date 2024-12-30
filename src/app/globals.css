@@ -19,3 +19,16 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Add specific styles for h1 and h2 */
+h1 {
+  @apply text-3xl; /* Tailwind CSS class for larger text size */
+}
+
+h2 {
+  @apply text-2xl; /* Tailwind CSS class for slightly smaller text size */
+}
+
+h3 {
+  @apply text-xl; /* Tailwind CSS class for slightly smaller text size */
+}

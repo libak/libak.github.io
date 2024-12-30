@@ -1,7 +1,7 @@
-import {WindDataFormatted} from "@/app/features/weather/model/WindData";
+import {WeatherData} from "@/app/features/weather/model/WeatherData";
 
 
-export const findNearestDatapoint = (data: WindDataFormatted[], targetTimestamp: string) => {
+export const findNearestDatapoint = (data: WeatherData[], targetTimestamp: string) => {
     const targetTime = new Date(targetTimestamp).getTime();
 
     // Find the nearest datapoint by calculating the absolute time difference

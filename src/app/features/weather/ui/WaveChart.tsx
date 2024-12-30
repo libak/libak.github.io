@@ -1,5 +1,3 @@
-import React, {PureComponent} from "react";
-import {format} from "date-fns";
 import {
     CartesianGrid,
     Legend,
@@ -11,49 +9,25 @@ import {
     XAxis,
     YAxis
 } from "recharts";
+import {COLORS, CustomizedAxisTick, formatTime, WeatherChartProps} from "@/app/features/weather/ui/WindChart";
+import {format} from "date-fns";
+import React, {JSX} from "react";
 import {WeatherData} from "@/app/features/weather/model/WeatherData";
-import {getWindArrow} from "@/app/features/weather/ui/WaveChart";
 
-export const COLORS = {
-    MAX: "#f51d93",
-    AVERAGE: "#82ca9d",
-};
 
-export interface WeatherChartProps {
-    chartData: WeatherData[];
-    xAxisTicks: string[];
+export function getWindArrow(direction: number | null | undefined): JSX.Element {
+    return (
+        direction ? (
+        <span style={{transform: `rotate(${direction + 180}deg)`}} className="material-icons">
+            north
+        </span>) : (<></>)
+    );
 }
-
-// Props for the custom tick
-export interface CustomizedAxisTickProps {
-    x: number;
-    y: number;
-    stroke?: string;
-    payload: {
-        value: string | number;
-    };
-}
-
-export class CustomizedAxisTick extends PureComponent<CustomizedAxisTickProps> {
-    render() {
-        const {x, y, payload} = this.props;
-
-        return (
-            <g transform={`translate(${x},${y})`}>
-                <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">
-                    {format(new Date(payload.value), "HH:mm")}
-                </text>
-            </g>
-        );
-    }
-}
-
-export const formatTime = (tick: string) => format(new Date(tick), "HH:mm");
 
 const CustomTooltip: React.FC<TooltipProps<number, string>> = ({active, payload, label}) => {
     if (active && payload && payload.length) {
         const weatherData: WeatherData = payload[0].payload;
-        const wind = weatherData.wind;
+        const wave = weatherData.wave;
         return (
             <div className="custom-tooltip"
                  style={{
@@ -65,26 +39,22 @@ const CustomTooltip: React.FC<TooltipProps<number, string>> = ({active, payload,
                  }}
             >
                 <p className="label">{format(new Date(label), 'HH:mm')}</p>
-                <p className="gust"
-                   style={{color: COLORS.MAX}} // Inline style for text color
-                >
-                    Gust: {wind.gust} m/s
+                <p style={{color: COLORS.MAX}}>
+                    Max: {wave.max} m
                 </p>
-                <p className="average"
-                   style={{color: COLORS.AVERAGE}} // Inline style for text color
-                >
-                    Average: {wind.average} m/s`
+                <p style={{color: COLORS.AVERAGE}}>
+                    Average: {wave.average} m
                 </p>
                 <div className="flex items-center space-x-1">
-                    <p>Direction: {wind.direction}°</p>
-                        {getWindArrow(wind.direction)}
+                    <p>Direction: {wave.direction}°</p>
+                    {getWindArrow(wave.direction)}
                 </div>
             </div>
         );
     }
 }
 
-export const WindChart: React.FC<WeatherChartProps> = ({chartData, xAxisTicks}) => {
+export const WaveChart: React.FC<WeatherChartProps> = ({chartData, xAxisTicks}) => {
     if (!chartData || chartData.length === 0) {
         return <p>Loading...</p>;
     }
@@ -125,8 +95,8 @@ export const WindChart: React.FC<WeatherChartProps> = ({chartData, xAxisTicks}) 
                                 textAlign: "center"
                             }}
                         />
-                        <Line type="monotone" dataKey="wind.gust" stroke={COLORS.MAX} activeDot={{r: 8}}/>
-                        <Line type="monotone" dataKey="wind.average" stroke={COLORS.AVERAGE}/>
+                        <Line type="monotone" dataKey="wave.max" stroke={COLORS.MAX} activeDot={{r: 8}}/>
+                        <Line type="monotone" dataKey="wave.average" stroke={COLORS.AVERAGE}/>
                     </LineChart>
                 </ResponsiveContainer>
             ) : (
