@@ -13,7 +13,7 @@ import {
 } from "recharts";
 import {findNearestDatapoint} from "@/app/features/weather/util/FindNearestDatapoint";
 import {WindData, WindDataFormatted} from "@/app/features/weather/model/WindData";
-import {horizontalPadding} from "@/app/page";
+import {horizontalPadding} from "@/app/common/styles";
 
 const COLORS = {
     GUST: "#8884d8",

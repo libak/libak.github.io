@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import {WindChart} from "@/app/features/weather/ui/WindChart";
-
-export const horizontalPadding = "sm:px-20 px-4";
+import {horizontalPadding} from "@/app/common/styles";
 
 export default function Home() {
     return (

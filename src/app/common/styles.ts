@@ -1,0 +1,1 @@
+export const horizontalPadding = "sm:px-20 px-4";
