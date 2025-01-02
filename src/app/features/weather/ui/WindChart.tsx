@@ -77,7 +77,7 @@ const CustomTooltip: React.FC<TooltipProps<number, string>> = ({active, payload,
                 </p>
                 <div className="flex items-center space-x-1">
                     <p>Direction: {wind.direction}°</p>
-                        {getWindArrow(wind.direction)}
+                    {getWindArrow(wind.direction)}
                 </div>
             </div>
         );
@@ -85,10 +85,6 @@ const CustomTooltip: React.FC<TooltipProps<number, string>> = ({active, payload,
 }
 
 export const WindChart: React.FC<WeatherChartProps> = ({chartData, xAxisTicks}) => {
-    if (!chartData || chartData.length === 0) {
-        return <p>Loading...</p>;
-    }
-
     // Beacuse of CustomTooltip then we need no inspection of TypeScriptValidateTypes
     // noinspection TypeScriptValidateTypes
     return (
@@ -101,37 +97,33 @@ export const WindChart: React.FC<WeatherChartProps> = ({chartData, xAxisTicks}) 
           }
         `}
             </style>
-            {chartData ? (
-                <ResponsiveContainer width="100%" height={500}>
-                    <LineChart
-                        data={chartData}
-                        margin={{top: 5, right: 30, left: 20, bottom: 5}}
-                    >
-                        <CartesianGrid strokeDasharray="3 3"/>
-                        <XAxis
-                            dataKey="timestamp"
-                            tick={(props) => <CustomizedAxisTick {...props} />} // Pass props to your component
-                            ticks={xAxisTicks} // Use the generated hourly ticks
-                            tickFormatter={formatTime} // Format ticks as "HH:mm"
-                        />
-                        <YAxis/>
-                        <Tooltip content={
-                            <CustomTooltip/>
-                        }/>
-                        <Legend
-                            wrapperStyle={{
-                                position: "relative",
-                                marginTop: "20px",
-                                textAlign: "center"
-                            }}
-                        />
-                        <Line type="monotone" dataKey="wind.gust" stroke={COLORS.MAX} activeDot={{r: 8}}/>
-                        <Line type="monotone" dataKey="wind.average" stroke={COLORS.AVERAGE}/>
-                    </LineChart>
-                </ResponsiveContainer>
-            ) : (
-                <p>Loading...</p>
-            )}
+            <ResponsiveContainer width="100%" height={500}>
+                <LineChart
+                    data={chartData}
+                    margin={{top: 5, right: 30, left: 20, bottom: 5}}
+                >
+                    <CartesianGrid strokeDasharray="3 3"/>
+                    <XAxis
+                        dataKey="timestamp"
+                        tick={(props) => <CustomizedAxisTick {...props} />} // Pass props to your component
+                        ticks={xAxisTicks} // Use the generated hourly ticks
+                        tickFormatter={formatTime} // Format ticks as "HH:mm"
+                    />
+                    <YAxis/>
+                    <Tooltip content={
+                        <CustomTooltip/>
+                    }/>
+                    <Legend
+                        wrapperStyle={{
+                            position: "relative",
+                            marginTop: "20px",
+                            textAlign: "center"
+                        }}
+                    />
+                    <Line type="monotone" dataKey="wind.gust" stroke={COLORS.MAX} activeDot={{r: 8}}/>
+                    <Line type="monotone" dataKey="wind.average" stroke={COLORS.AVERAGE}/>
+                </LineChart>
+            </ResponsiveContainer>
         </div>
     );
 };

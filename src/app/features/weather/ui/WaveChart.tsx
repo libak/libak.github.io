@@ -18,7 +18,7 @@ import {WeatherData} from "@/app/features/weather/model/WeatherData";
 export function getWindArrow(direction: number | null | undefined): JSX.Element {
     return (
         direction ? (
-        <span style={{transform: `rotate(${direction + 180}deg)`}} className="material-icons">
+            <span style={{transform: `rotate(${direction + 180}deg)`}} className="material-icons">
             north
         </span>) : (<></>)
     );
@@ -49,16 +49,15 @@ const CustomTooltip: React.FC<TooltipProps<number, string>> = ({active, payload,
                     <p>Direction: {wave.direction}°</p>
                     {getWindArrow(wave.direction)}
                 </div>
+                <p>
+                    Period: {wave.period} sec
+                </p>
             </div>
         );
     }
 }
 
 export const WaveChart: React.FC<WeatherChartProps> = ({chartData, xAxisTicks}) => {
-    if (!chartData || chartData.length === 0) {
-        return <p>Loading...</p>;
-    }
-
     // Beacuse of CustomTooltip then we need no inspection of TypeScriptValidateTypes
     // noinspection TypeScriptValidateTypes
     return (
@@ -71,37 +70,33 @@ export const WaveChart: React.FC<WeatherChartProps> = ({chartData, xAxisTicks}) 
           }
         `}
             </style>
-            {chartData ? (
-                <ResponsiveContainer width="100%" height={500}>
-                    <LineChart
-                        data={chartData}
-                        margin={{top: 5, right: 30, left: 20, bottom: 5}}
-                    >
-                        <CartesianGrid strokeDasharray="3 3"/>
-                        <XAxis
-                            dataKey="timestamp"
-                            tick={(props) => <CustomizedAxisTick {...props} />} // Pass props to your component
-                            ticks={xAxisTicks} // Use the generated hourly ticks
-                            tickFormatter={formatTime} // Format ticks as "HH:mm"
-                        />
-                        <YAxis/>
-                        <Tooltip content={
-                            <CustomTooltip/>
-                        }/>
-                        <Legend
-                            wrapperStyle={{
-                                position: "relative",
-                                marginTop: "20px",
-                                textAlign: "center"
-                            }}
-                        />
-                        <Line type="monotone" dataKey="wave.max" stroke={COLORS.MAX} activeDot={{r: 8}}/>
-                        <Line type="monotone" dataKey="wave.average" stroke={COLORS.AVERAGE}/>
-                    </LineChart>
-                </ResponsiveContainer>
-            ) : (
-                <p>Loading...</p>
-            )}
+            <ResponsiveContainer width="100%" height={500}>
+                <LineChart
+                    data={chartData}
+                    margin={{top: 5, right: 30, left: 20, bottom: 5}}
+                >
+                    <CartesianGrid strokeDasharray="3 3"/>
+                    <XAxis
+                        dataKey="timestamp"
+                        tick={(props) => <CustomizedAxisTick {...props} />} // Pass props to your component
+                        ticks={xAxisTicks} // Use the generated hourly ticks
+                        tickFormatter={formatTime} // Format ticks as "HH:mm"
+                    />
+                    <YAxis/>
+                    <Tooltip content={
+                        <CustomTooltip/>
+                    }/>
+                    <Legend
+                        wrapperStyle={{
+                            position: "relative",
+                            marginTop: "20px",
+                            textAlign: "center"
+                        }}
+                    />
+                    <Line type="monotone" dataKey="wave.max" stroke={COLORS.MAX} activeDot={{r: 8}}/>
+                    <Line type="monotone" dataKey="wave.average" stroke={COLORS.AVERAGE}/>
+                </LineChart>
+            </ResponsiveContainer>
         </div>
     );
 };

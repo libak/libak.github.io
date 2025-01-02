@@ -15,11 +15,11 @@ import {WaveCurrent} from "@/app/features/weather/ui/WaveCurrent";
 export default function Home() {
     const [chartData, setChartData] = useState<WeatherData[] | null>(null);
     const [currentWeather, setCurrentWeather] = useState<WeatherData | null>(null);
-    const [lastFetchedTime, setLastFetchedTime] = useState<Date | null>(null);
+    // const [lastFetchedTime, setLastFetchedTime] = useState<Date | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
-            setLastFetchedTime(new Date());
+            // setLastFetchedTime(new Date());
 
             try {
                 const data = await fetchWeatherData();
@@ -78,29 +78,44 @@ export default function Home() {
                     />
                 </div>
                 <h2 className={`text-left ${horizontalPadding}`}>
-                    Hvide Sande {lastFetchedTime ? lastFetchedTime.toLocaleTimeString() : "Loading..."}
+                    Hvide Sande {currentWeather ? (new Date(currentWeather.timestamp).toLocaleTimeString()) : ""}
                 </h2>
+                {chartData ? (
+                    <div className={`flex flex-col gap-8`}>
+                        <WindCurrent currentWeather={currentWeather}/>
+                        <div className="w-full">
+                            {chartData && xAxisTicks ?
+                                <WindChart chartData={chartData} xAxisTicks={xAxisTicks}/> :
+                                <p>Loading</p>
+                            }
+                        </div>
+                        <br/>
+                        <WaveCurrent currentWeather={currentWeather}/>
+                        <div className="w-full">
+                            {chartData && xAxisTicks ?
+                                <WaveChart chartData={chartData} xAxisTicks={xAxisTicks}/> :
+                                <p>Loading</p>}
+                        </div>
+                        <br /><br />
+                        <div className={`inline-block ${horizontalPadding}`}>
+                            <Image
+                                src="/assets/images/hvide-sande-map.png"
+                                alt="Hvide Sande air map"
+                                width={700}
+                                height={80}
+                            />
+                        </div>
 
-                <h2 className={`text-left ${horizontalPadding}`}>Wind</h2>
-                <WindCurrent currentWeather={currentWeather}/>
-                <div className="w-full">
-                    {chartData && xAxisTicks ?
-                        <WindChart chartData={chartData} xAxisTicks={xAxisTicks}/> :
-                        <p>Loading</p>
-                    }
-                </div>
-
-                <div className={`text-left ${horizontalPadding}`}>
-                    <h2>Waves</h2>
-                </div>
-                <WaveCurrent currentWeather={currentWeather}/>
-                <div className="w-full">
-                    {chartData && xAxisTicks ?
-                        <WaveChart chartData={chartData} xAxisTicks={xAxisTicks}/> :
-                        <p>Loading</p>}
-                </div>
+                    </div>
+                ) : (
+                    <p className={horizontalPadding}>
+                        Loading...
+                    </p>
+                )
+                }
             </main>
             <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center"></footer>
         </div>
-    );
+    )
+        ;
 }

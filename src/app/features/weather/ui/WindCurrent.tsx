@@ -12,7 +12,7 @@ export const WindCurrent: React.FC<WeatherCurrentProps> = ({currentWeather}) => 
     const wind = currentWeather?.wind;
     return (
         <div className={`flex flex-wrap gap-8 ${horizontalPadding}`}>
-            <h3>Time: {currentWeather ? (new Date(currentWeather.timestamp).toLocaleTimeString()) : ""}</h3>
+            <h3><b>Wind</b></h3>
             <h3 style={{color: COLORS.MAX}}>Max: {wind?.gust} m/s</h3>
             <h3 style={{color: COLORS.AVERAGE}}>Average: {wind?.average} m/s</h3>
             <h3 className="flex items-center space-x-1">
