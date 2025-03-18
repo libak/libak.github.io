@@ -5,7 +5,7 @@ import {COLORS} from "@/app/features/weather/ui/WindChart";
 import {getWindArrow} from "@/app/features/weather/ui/WaveChart";
 
 export interface WeatherCurrentProps {
-    currentWeather: WeatherData| null;
+    currentWeather: WeatherData;
 }
 
 export const WindCurrent: React.FC<WeatherCurrentProps> = ({currentWeather}) => {
