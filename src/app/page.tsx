@@ -11,6 +11,7 @@ import {findNearestDatapoint} from "@/app/features/weather/util/FindNearestDatap
 import {WaveChart} from "@/app/features/weather/ui/WaveChart";
 import {WindCurrent} from "@/app/features/weather/ui/WindCurrent";
 import {WaveCurrent} from "@/app/features/weather/ui/WaveCurrent";
+import GoogleMapComponent from "@/app/features/weather/ui/GoogleMapComponent";
 
 export default function Home() {
     const [chartData, setChartData] = useState<WeatherData[] | null>(null);
@@ -181,6 +182,7 @@ export default function Home() {
                             </div>
 
                         </div>
+                        <GoogleMapComponent />
                     </div>
                 ) : (
                     <p className={horizontalPadding}>
