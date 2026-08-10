@@ -15,6 +15,9 @@ export const WindCurrent: React.FC<WeatherCurrentProps> = ({currentWeather}) => 
             <h3><b>Wind</b></h3>
             <h3 style={{color: COLORS.MAX}}>Max: {wind?.gust} m/s</h3>
             <h3 style={{color: COLORS.AVERAGE}}>Average: {wind?.average} m/s</h3>
+            {wind?.current !== undefined && wind.current !== null && (
+                <h3 className="text-white">Current: {wind.current} m/s</h3>
+            )}
             <h3 className="flex items-center space-x-1">
                 <p>{wind?.direction}°</p>
                 {getWindArrow(wind?.direction)}

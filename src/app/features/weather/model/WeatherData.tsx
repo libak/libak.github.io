@@ -5,6 +5,7 @@ export interface WeatherData {
 }
 
 interface Wind {
+    current?: number | null;
     average: number | null;
     gust: number | null;
     direction: number | null;
