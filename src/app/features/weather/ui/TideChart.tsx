@@ -49,7 +49,7 @@ export const TideChart: React.FC = () => {
     const end = addDays(start, 1);
     const data = listTideCurve(start, end);
     // Smallest hour step that leaves ~70px per label; plot area is the container minus margins and y-axis
-    const hoursPerTick = [2, 3, 4, 6, 12].find((hours) => (width - 110) * hours / 24 >= 70) ?? 12;
+    const hoursPerTick = [2, 3, 4, 6, 12].find((hours) => (width - 90) * hours / 24 >= 70) ?? 12;
     const ticks = Array.from({length: 24 / hoursPerTick + 1}, (_, i) => addHours(start, i * hoursPerTick).getTime());
 
     // noinspection TypeScriptValidateTypes
@@ -57,7 +57,7 @@ export const TideChart: React.FC = () => {
         <ResponsiveContainer width="100%" height={300} onResize={setWidth}>
             <LineChart
                 data={data}
-                margin={{top: 20, right: 30, left: 20, bottom: 5}}
+                margin={{top: 20, right: 24, left: 0, bottom: 5}}
             >
                 <CartesianGrid strokeDasharray="3 3"/>
                 <XAxis
@@ -67,7 +67,7 @@ export const TideChart: React.FC = () => {
                     ticks={ticks}
                     tickFormatter={(time: number) => time === end.getTime() ? "24:00" : format(new Date(time), "HH:mm")}
                 />
-                <YAxis unit=" m"/>
+                <YAxis unit=" m" width={66}/>
                 <Tooltip content={<CustomTooltip/>}/>
                 <ReferenceLine y={0} stroke="#666"/>
                 <ReferenceLine

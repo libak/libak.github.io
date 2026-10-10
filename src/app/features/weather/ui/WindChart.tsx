@@ -100,7 +100,7 @@ export const WindChart: React.FC<WeatherChartProps> = ({chartData, xAxisTicks}) 
             <ResponsiveContainer width="100%" height={500}>
                 <LineChart
                     data={chartData}
-                    margin={{top: 5, right: 30, left: 20, bottom: 5}}
+                    margin={{top: 5, right: 16, left: 12, bottom: 5}}
                 >
                     <CartesianGrid strokeDasharray="3 3"/>
                     <XAxis
@@ -109,7 +109,7 @@ export const WindChart: React.FC<WeatherChartProps> = ({chartData, xAxisTicks}) 
                         ticks={xAxisTicks} // Use the generated hourly ticks
                         tickFormatter={formatTime} // Format ticks as "HH:mm"
                     />
-                    <YAxis/>
+                    <YAxis width={30}/>
                     <Tooltip content={
                         <CustomTooltip/>
                     }/>
