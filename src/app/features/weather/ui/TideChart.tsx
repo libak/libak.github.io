@@ -38,6 +38,7 @@ const CustomTooltip: React.FC<TooltipProps<number, string>> = ({active, payload}
 
 export const TideChart: React.FC = () => {
     const [now, setNow] = useState(new Date());
+    const [width, setWidth] = useState(0);
 
     useEffect(() => {
         const intervalId = setInterval(() => setNow(new Date()), 60 * 1000);
@@ -47,11 +48,13 @@ export const TideChart: React.FC = () => {
     const start = startOfDay(now);
     const end = addDays(start, 1);
     const data = listTideCurve(start, end);
-    const ticks = Array.from({length: 13}, (_, i) => addHours(start, i * 2).getTime());
+    // Smallest hour step that leaves ~70px per label; plot area is the container minus margins and y-axis
+    const hoursPerTick = [2, 3, 4, 6, 12].find((hours) => (width - 110) * hours / 24 >= 70) ?? 12;
+    const ticks = Array.from({length: 24 / hoursPerTick + 1}, (_, i) => addHours(start, i * hoursPerTick).getTime());
 
     // noinspection TypeScriptValidateTypes
     return (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={300} onResize={setWidth}>
             <LineChart
                 data={data}
                 margin={{top: 20, right: 30, left: 20, bottom: 5}}
