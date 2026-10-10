@@ -11,6 +11,7 @@ import {findNearestDatapoint} from "@/app/features/weather/util/FindNearestDatap
 import {WaveChart} from "@/app/features/weather/ui/WaveChart";
 import {WindCurrent} from "@/app/features/weather/ui/WindCurrent";
 import {WaveCurrent} from "@/app/features/weather/ui/WaveCurrent";
+import {TideChart} from "@/app/features/weather/ui/TideChart";
 
 export default function Home() {
     const [chartData, setChartData] = useState<WeatherData[] | null>(null);
@@ -99,6 +100,11 @@ export default function Home() {
                             {chartData && xAxisTicks ?
                                 <WaveChart chartData={chartData} xAxisTicks={xAxisTicks}/> :
                                 <p>Loading</p>}
+                        </div>
+                        <br/>
+                        <h3 className={horizontalPadding}><b>Tide</b></h3>
+                        <div className="w-full">
+                            <TideChart/>
                         </div>
                         <br/><br/>
                         <div className={`relative inline-block ${horizontalPadding}`}>

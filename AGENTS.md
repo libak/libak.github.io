@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-This repository is a small Next.js 15 app using the App Router and TypeScript. Route entry files live in `src/app/`, including `layout.tsx`, `page.tsx`, and `globals.css`. Weather-specific code is grouped under `src/app/features/weather/` by responsibility: `ui/` for components, `model/` for types, `usecase/` for feature logic, and `util/` for helpers. Shared styling utilities live in `src/app/common/`. Static assets and deployment files live in `public/`, including `public/assets/images/`, `public/.well-known/assetlinks.json`, `public/CNAME`, and `public/privacypolicy.html`.
+This repository is a small Next.js 15 app using the App Router and TypeScript. Route entry files live in `src/app/`, including `layout.tsx`, `page.tsx`, and `globals.css`. Weather-specific code is grouped under `src/app/features/weather/` by responsibility: `ui/` for components, `model/` for types, `usecase/` for feature logic, `util/` for helpers, and `data/` for static data. `data/tides-hvide-sande.json` (high/low water, UTC, meters above MSL) is generated from DMI tide table PDFs: `node scripts/parse-tides.mjs tidevand-HvideSandeKyst-<year>.pdf... > src/app/features/weather/data/tides-hvide-sande.json` (needs `pipx`). Pass every year to keep, since the file is overwritten. Shared styling utilities live in `src/app/common/`. Static assets and deployment files live in `public/`, including `public/assets/images/`, `public/.well-known/assetlinks.json`, `public/CNAME`, and `public/privacypolicy.html`.
 
 ## Build, Test, and Development Commands
 Use `npm install` to set up dependencies.
