@@ -12,6 +12,7 @@ import {WaveChart} from "@/app/features/weather/ui/WaveChart";
 import {WindCurrent} from "@/app/features/weather/ui/WindCurrent";
 import {WaveCurrent} from "@/app/features/weather/ui/WaveCurrent";
 import {TideChart} from "@/app/features/weather/ui/TideChart";
+import {WindWaveMap} from "@/app/features/weather/ui/WindWaveMap";
 
 export default function Home() {
     const [chartData, setChartData] = useState<WeatherData[] | null>(null);
@@ -63,10 +64,6 @@ export default function Home() {
         });
     }
 
-    const arrowpadding = 6;
-    const waveColor = '#0649c2';
-    const windColor = '#505050';
-
     return (
         <div
             className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen py-8 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
@@ -107,85 +104,8 @@ export default function Home() {
                             <TideChart/>
                         </div>
                         <br/><br/>
-                        <div className={`relative inline-block ${horizontalPadding}`}>
-                            <div className={`relative inline-block`}>
-                                <div className={`relative inline-block`}>
-                                    <Image
-                                        src="/assets/images/hvide-sande-map.png"
-                                        alt="Hvide Sande air map"
-                                        width={700}
-                                        height={80}
-                                    />
-                                    {currentWeather.wind.direction !== null && (
-                                        Array.from({length: 7 * 8}).map((_, index) => {
-                                            const row = Math.floor(index / 7);
-                                            const col = index % 7;
-                                            return (
-                                                <div
-                                                    key={`wind-${index}`}
-                                                    className="absolute"
-                                                    style={{
-                                                        top: `${row / 7 * (100 - arrowpadding)}%`,
-                                                        left: `${col / 6 * (100 - arrowpadding)}%`,
-                                                        transform: `rotate(${currentWeather.wind.direction! + 180}deg)`,
-                                                    }}
-                                                >
-                                                        <span className="material-icons" style={{
-                                                            fontSize: '34px',
-                                                            color: `${windColor}`,
-                                                            opacity: 0.5
-                                                        }}>north</span>
-                                                </div>
-                                            );
-                                        })
-                                    )}
-                                    {currentWeather.wave.direction !== null && (
-                                        Array.from({length: 7 * 8}).map((_, index) => {
-                                            const row = Math.floor(index / 7);
-                                            if (row === 7) return;
-                                            const col = index % 7;
-                                            return (
-                                                <div
-                                                    key={`wave-${index}`}
-                                                    className="absolute"
-                                                    style={{
-                                                        top: `${(row / 7 * (100 - arrowpadding)) + 7}%`,
-                                                        left: `${col / 6 * (100 - arrowpadding)}%`,
-                                                        transform: `rotate(${currentWeather.wave.direction! + 180}deg)`,
-                                                    }}
-                                                >
-                                                        <span className="material-icons" style={{
-                                                            fontSize: '34px',
-                                                            color: `${waveColor}`,
-                                                            opacity: 0.2
-                                                        }}>north</span>
-                                                </div>
-                                            );
-                                        })
-                                    )}
-
-                                </div>
-                                <div className={`flex justify-center items-center gap-4 pt-2`}>
-                                    <div className={`flex gap-1`}>
-                                        <span className="material-icons" style={{
-                                            fontSize: '24px',
-                                            color: `${windColor}`,
-                                            transform: `rotate(${currentWeather.wind.direction! + 180}deg)`,
-                                        }}>north</span>
-                                        <p style={{color: `${windColor}`}}>Wind</p>
-                                    </div>
-
-                                    <div className={`flex gap-1`}>
-                                        <span className="material-icons" style={{
-                                            fontSize: '24px',
-                                            color: `${waveColor}`,
-                                            transform: `rotate(${currentWeather.wave.direction! + 180}deg)`,
-                                        }}>north</span>
-                                        <p style={{color: `${waveColor}`}}>Waves</p>
-                                    </div>
-                                </div>
-                            </div>
-
+                        <div className={horizontalPadding}>
+                            <WindWaveMap currentWeather={currentWeather}/>
                         </div>
                     </div>
                 ) : (
