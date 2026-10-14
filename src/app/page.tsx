@@ -1,142 +1,26 @@
-"use client"; // Mark this as a client component
-
 import Image from "next/image";
-import {WindChart} from "@/app/features/weather/ui/WindChart";
-import {horizontalPadding} from "@/app/common/styles";
-import React, {useEffect, useState} from "react";
-import {WeatherData} from "@/app/features/weather/model/WeatherData";
-import {fetchWeatherData} from "@/app/features/weather/usecase/WeatherUseCase";
-import {addHours, startOfHour} from "date-fns";
-import {findNearestDatapoint} from "@/app/features/weather/util/FindNearestDatapoint";
-import {mergeLast24h} from "@/app/features/weather/util/MergeLast24h";
-import {WaveChart} from "@/app/features/weather/ui/WaveChart";
-import {WindCurrent} from "@/app/features/weather/ui/WindCurrent";
-import {WaveCurrent} from "@/app/features/weather/ui/WaveCurrent";
-import {TideChart} from "@/app/features/weather/ui/TideChart";
-import {WindWaveMap} from "@/app/features/weather/ui/WindWaveMap";
-import {ReadingAge} from "@/app/features/weather/ui/ReadingAge";
 
-// Reading interval plus Kystdirektoratet's worst observed publish delay (~17 min)
-const WIND_LATE_AFTER_MINUTES = 10 + 17;
-const WAVE_LATE_AFTER_MINUTES = 30 + 17;
+const GUSTSPOT_URL = "https://gustspot.com";
 
+// The Hvide Sande weather page moved to its own site; this home page points visitors there
 export default function Home() {
-    const [chartData, setChartData] = useState<WeatherData[] | null>(null);
-    const [currentWeather, setCurrentWeather] = useState<WeatherData | null>(null);
-    // const [lastFetchedTime, setLastFetchedTime] = useState<Date | null>(null);
-
-    useEffect(() => {
-        let entries: WeatherData[] = [];
-        const fetchData = async () => {
-            // setLastFetchedTime(new Date());
-
-            try {
-                // Await before reading entries again, so an overlapping slow poll can't overwrite newer data
-                const incoming = await fetchWeatherData(entries[entries.length - 1]?.timestamp);
-                // Most polls bring nothing new; skipping avoids re-rendering both charts. On first load
-                // this also keeps "Loading..." while there is no data, since the charts index entries[0].
-                if (incoming.length === 0) return;
-                entries = mergeLast24h(entries, incoming);
-                setChartData(entries);
-                setCurrentWeather(entries[entries.length - 1]);
-            } catch (error) {
-                console.error("Error fetching wind data:", error);
-            }
-        };
-
-        fetchData();
-
-        const intervalId = setInterval(fetchData, 60 * 1000);
-
-        return () => clearInterval(intervalId);
-    }, []);
-
-    // Generate hourly ticks between the start and end of your data
-    const generateHourlyTicks = (start: Date, end: Date) => {
-        const ticks: string[] = [];
-        let current = startOfHour(start);
-        while (current <= end) {
-            ticks.push(current.toISOString()); // ISO format
-            current = addHours(current, 1); // Move to the next hour
-        }
-        return ticks;
-    };
-
-    // Find the range of your data for tick generation
-    let xAxisTicks: string[] | null = null;
-    if (chartData) {
-        // Find the range of your data for tick generation
-        const startTime = new Date(chartData[0].timestamp);
-        const endTime = new Date(chartData[chartData.length - 1].timestamp);
-        const hourlyTicks = generateHourlyTicks(startTime, endTime);
-
-        xAxisTicks = hourlyTicks.map((tick) => {
-            const nearest = findNearestDatapoint(chartData, tick);
-            return nearest.timestamp;
-        });
-    }
-
     return (
-        <div
-            className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen py-8 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
-            <main
-                className="flex flex-col gap-8 row-start-2 w-full font-[family-name:var(--font-geist-mono)]">
-                <div
-                    className={`flex justify-center items-center sm:items-start sm:justify-start ${horizontalPadding}`}>
-                    <Image
-                        src="/assets/images/libakit-logo.png"
-                        alt="Libak IT ApS logo"
-                        width={180}
-                        height={38}
-                        priority
-                    />
-                </div>
-                <h2 className={`text-left ${horizontalPadding}`}>
-                    Hvide Sande
-                </h2>
-                {chartData && currentWeather ? (
-                    <div className={`flex flex-col gap-8`}>
-                        <div className="flex flex-col gap-2">
-                            <WindCurrent currentWeather={currentWeather}/>
-                            <ReadingAge timestamp={currentWeather.timestamp} intervalMinutes={10} lateAfterMinutes={WIND_LATE_AFTER_MINUTES}/>
-                        </div>
-                        <div className="w-full">
-                            {chartData && xAxisTicks ?
-                                <WindChart chartData={chartData} xAxisTicks={xAxisTicks}/> :
-                                <p>Loading</p>
-                            }
-                        </div>
-                        <br/>
-                        <div className="flex flex-col gap-2">
-                            <WaveCurrent currentWeather={currentWeather}/>
-                            {currentWeather.wave.timestamp && (
-                                <ReadingAge timestamp={currentWeather.wave.timestamp} intervalMinutes={30} lateAfterMinutes={WAVE_LATE_AFTER_MINUTES}/>
-                            )}
-                        </div>
-                        <div className="w-full">
-                            {chartData && xAxisTicks ?
-                                <WaveChart chartData={chartData} xAxisTicks={xAxisTicks}/> :
-                                <p>Loading</p>}
-                        </div>
-                        <br/>
-                        <h3 className={horizontalPadding}><b>Tide</b></h3>
-                        <div className="w-full">
-                            <TideChart/>
-                        </div>
-                        <br/><br/>
-                        <div className={horizontalPadding}>
-                            <WindWaveMap currentWeather={currentWeather}/>
-                        </div>
-                    </div>
-                ) : (
-                    <p className={horizontalPadding}>
-                        Loading...
-                    </p>
-                )
-                }
-            </main>
-            <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center"></footer>
-        </div>
-    )
-        ;
+        <main className="flex min-h-screen flex-col items-center justify-center gap-10 px-6 text-center font-[family-name:var(--font-geist-mono)]">
+            <a href={GUSTSPOT_URL} aria-label="GustSpot">
+                <Image src="/assets/images/gustspot-logo.png" alt="GustSpot logo" width={360} height={98} priority/>
+            </a>
+            <div className="flex flex-col gap-3">
+                <h1 className="text-2xl">This page has moved to GustSpot.com</h1>
+                <p className="opacity-70">
+                    Live wind and waves for Hvide Sande, Thorsminde and Thyborøn are now on GustSpot.
+                </p>
+            </div>
+            <a
+                href={GUSTSPOT_URL}
+                className="rounded-md border border-neutral-500/50 px-5 py-2 hover:border-neutral-500 hover:bg-neutral-500/10"
+            >
+                Go to GustSpot.com →
+            </a>
+        </main>
+    );
 }
