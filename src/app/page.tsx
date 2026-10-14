@@ -8,6 +8,7 @@ import {WeatherData} from "@/app/features/weather/model/WeatherData";
 import {fetchWeatherData} from "@/app/features/weather/usecase/WeatherUseCase";
 import {addHours, startOfHour} from "date-fns";
 import {findNearestDatapoint} from "@/app/features/weather/util/FindNearestDatapoint";
+import {mergeLast24h} from "@/app/features/weather/util/MergeLast24h";
 import {WaveChart} from "@/app/features/weather/ui/WaveChart";
 import {WindCurrent} from "@/app/features/weather/ui/WindCurrent";
 import {WaveCurrent} from "@/app/features/weather/ui/WaveCurrent";
@@ -20,13 +21,19 @@ export default function Home() {
     // const [lastFetchedTime, setLastFetchedTime] = useState<Date | null>(null);
 
     useEffect(() => {
+        let entries: WeatherData[] = [];
         const fetchData = async () => {
             // setLastFetchedTime(new Date());
 
             try {
-                const data = await fetchWeatherData();
-                setChartData(data);
-                setCurrentWeather(data[data.length - 1]);
+                // Await before reading entries again, so an overlapping slow poll can't overwrite newer data
+                const incoming = await fetchWeatherData(entries[entries.length - 1]?.timestamp);
+                // Most polls bring nothing new; skipping avoids re-rendering both charts. On first load
+                // this also keeps "Loading..." while there is no data, since the charts index entries[0].
+                if (incoming.length === 0) return;
+                entries = mergeLast24h(entries, incoming);
+                setChartData(entries);
+                setCurrentWeather(entries[entries.length - 1]);
             } catch (error) {
                 console.error("Error fetching wind data:", error);
             }
