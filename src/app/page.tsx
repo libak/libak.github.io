@@ -14,6 +14,11 @@ import {WindCurrent} from "@/app/features/weather/ui/WindCurrent";
 import {WaveCurrent} from "@/app/features/weather/ui/WaveCurrent";
 import {TideChart} from "@/app/features/weather/ui/TideChart";
 import {WindWaveMap} from "@/app/features/weather/ui/WindWaveMap";
+import {ReadingAge} from "@/app/features/weather/ui/ReadingAge";
+
+// Reading interval plus Kystdirektoratet's worst observed publish delay (~17 min)
+const WIND_LATE_AFTER_MINUTES = 10 + 17;
+const WAVE_LATE_AFTER_MINUTES = 30 + 17;
 
 export default function Home() {
     const [chartData, setChartData] = useState<WeatherData[] | null>(null);
@@ -87,11 +92,14 @@ export default function Home() {
                     />
                 </div>
                 <h2 className={`text-left ${horizontalPadding}`}>
-                    Hvide Sande {currentWeather ? (new Date(currentWeather.timestamp).toLocaleTimeString()) : ""}
+                    Hvide Sande
                 </h2>
                 {chartData && currentWeather ? (
                     <div className={`flex flex-col gap-8`}>
-                        <WindCurrent currentWeather={currentWeather}/>
+                        <div className="flex flex-col gap-2">
+                            <WindCurrent currentWeather={currentWeather}/>
+                            <ReadingAge timestamp={currentWeather.timestamp} intervalMinutes={10} lateAfterMinutes={WIND_LATE_AFTER_MINUTES}/>
+                        </div>
                         <div className="w-full">
                             {chartData && xAxisTicks ?
                                 <WindChart chartData={chartData} xAxisTicks={xAxisTicks}/> :
@@ -99,7 +107,12 @@ export default function Home() {
                             }
                         </div>
                         <br/>
-                        <WaveCurrent currentWeather={currentWeather}/>
+                        <div className="flex flex-col gap-2">
+                            <WaveCurrent currentWeather={currentWeather}/>
+                            {currentWeather.wave.timestamp && (
+                                <ReadingAge timestamp={currentWeather.wave.timestamp} intervalMinutes={30} lateAfterMinutes={WAVE_LATE_AFTER_MINUTES}/>
+                            )}
+                        </div>
                         <div className="w-full">
                             {chartData && xAxisTicks ?
                                 <WaveChart chartData={chartData} xAxisTicks={xAxisTicks}/> :

@@ -2,7 +2,7 @@ import React from "react";
 import {horizontalPadding} from "@/app/common/styles";
 import {WeatherCurrentProps} from "@/app/features/weather/ui/WindCurrent";
 import {COLORS} from "@/app/features/weather/ui/WindChart";
-import {getWindArrow} from "@/app/features/weather/ui/WaveChart";
+import {formatDirection, getWindArrow} from "@/app/features/weather/ui/WaveChart";
 
 export const WaveCurrent: React.FC<WeatherCurrentProps> = ({currentWeather}) => {
     const wave = currentWeather?.wave;
@@ -12,7 +12,7 @@ export const WaveCurrent: React.FC<WeatherCurrentProps> = ({currentWeather}) => 
             <h3 style={{color: COLORS.MAX}}>Max: {wave?.max} m</h3>
             <h3 style={{color: COLORS.AVERAGE}}>Average: {wave?.average} m</h3>
             <h3 className="flex items-center space-x-1">
-                <p>{wave?.direction}°</p>
+                <p>{formatDirection(wave?.direction)}</p>
                 {getWindArrow(wave?.direction)}
             </h3>
             <h3>{wave?.period} sec</h3>

@@ -15,6 +15,11 @@ import React, {JSX} from "react";
 import {WeatherData} from "@/app/features/weather/model/WeatherData";
 
 
+// Whole degrees; sources report up to 10 decimals
+export function formatDirection(direction: number | null | undefined): string {
+    return direction === null || direction === undefined ? "" : `${Math.round(direction)}°`;
+}
+
 export function getWindArrow(direction: number | null | undefined): JSX.Element {
     return (
         direction ? (
@@ -46,7 +51,7 @@ const CustomTooltip: React.FC<TooltipProps<number, string>> = ({active, payload,
                     Average: {wave.average} m
                 </p>
                 <div className="flex items-center space-x-1">
-                    <p>Direction: {wave.direction}°</p>
+                    <p>Direction: {formatDirection(wave.direction)}</p>
                     {getWindArrow(wave.direction)}
                 </div>
                 <p>

@@ -2,7 +2,7 @@ import React from "react";
 import {WeatherData} from "@/app/features/weather/model/WeatherData";
 import {horizontalPadding} from "@/app/common/styles";
 import {COLORS} from "@/app/features/weather/ui/WindChart";
-import {getWindArrow} from "@/app/features/weather/ui/WaveChart";
+import {formatDirection, getWindArrow} from "@/app/features/weather/ui/WaveChart";
 
 export interface WeatherCurrentProps {
     currentWeather: WeatherData;
@@ -19,7 +19,7 @@ export const WindCurrent: React.FC<WeatherCurrentProps> = ({currentWeather}) => 
                 <h3 className="text-white">Current: {wind.current} m/s</h3>
             )}
             <h3 className="flex items-center space-x-1">
-                <p>{wind?.direction}°</p>
+                <p>{formatDirection(wind?.direction)}</p>
                 {getWindArrow(wind?.direction)}
             </h3>
             <h3>{wind?.temp} °C</h3>

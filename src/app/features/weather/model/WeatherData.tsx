@@ -13,6 +13,7 @@ interface Wind {
 }
 
 interface Wave {
+    timestamp?: string | null; // ISO 8601; only the Cloudflare backend sends it
     max: number | null;
     average: number | null;
     period: number | null;

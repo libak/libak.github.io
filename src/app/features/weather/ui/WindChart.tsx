@@ -12,7 +12,7 @@ import {
     YAxis
 } from "recharts";
 import {WeatherData} from "@/app/features/weather/model/WeatherData";
-import {getWindArrow} from "@/app/features/weather/ui/WaveChart";
+import {formatDirection, getWindArrow} from "@/app/features/weather/ui/WaveChart";
 
 export const COLORS = {
     MAX: "#f51d93",
@@ -76,7 +76,7 @@ const CustomTooltip: React.FC<TooltipProps<number, string>> = ({active, payload,
                     Average: {wind.average} m/s`
                 </p>
                 <div className="flex items-center space-x-1">
-                    <p>Direction: {wind.direction}°</p>
+                    <p>Direction: {formatDirection(wind.direction)}</p>
                     {getWindArrow(wind.direction)}
                 </div>
             </div>
