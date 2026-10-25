@@ -43,7 +43,7 @@
         <h3>Vores behandling af personoplysninger ved tilkobling til forbrugsfunktion i Min El. </h3>
 
         <div style="overflow: hidden;">
-            <p style="float: right; margin: 0;">Senest opdateret: 11-04-2023</p>
+            <p style="float: right; margin: 0;">Senest opdateret: 25-10-2026</p>
         </div>
 
         <h4>1. Dataansvar og kontaktoplysninger</h4>
@@ -79,8 +79,7 @@
         <p>Til formålet behandler vi følgende almindelige personoplysninger:</p>
         <ul>
             <li>Adresse, angivelse af adressebeskyttelse</li>
-            <li>Telefonnr</li>
-            <li>BrugerID fra app</li>
+            <li>Anonymt BrugerID fra app</li>
             <li>Eloplysninger: Måledata i faktisk opløsning samt stamdata, målepunktsID (overordnet målepunktsID).
                 Netområde, Netvirksomhedsnavn og ID, Nettoafregningsgruppe, Målernummer, Målercifre, Målerenhed,
                 Kundenavne, KundeCVR, DataadgangsCVR og Kundestartdato.
@@ -92,13 +91,15 @@
         <u><i>Indsamling af dine oplysninger</i></u>
         <p>Når vi ikke indsamler oplysningerne direkte fra dig, er vi forpligtet til at informere dig om, hvorfra vi har
             modtaget dine oplysninger. Ved behandling af dine oplysninger i forbindelse med, at du bruger Min El app,
-            har vi modtaget oplysningerne fra Eloverblik.dk.
+            har vi modtaget oplysningerne fra Eloverblik.dk. Du giver adgangen på Eloverblik.dk, og du kan til enhver tid
+            tilbagekalde den samme sted.
         </p>
 
         <h4>3. Kategorier af modtagere</h4>
         <p>Vi videregiver eller overlader personoplysninger til følgende kategorier af modtagere:</p>
         <ul>
             <li>Eloverblik</li>
+            <li>Google (Firebase og Google Cloud), som opbevarer oplysningerne på vores vegne.</li>
             <li>Vores databehandlere på grundlag af databehandleraftaler.</li>
         </ul>
 
@@ -106,16 +107,19 @@
             oplysninger til tredjelande,
             som eksempelvis USA. I så fald sker denne overførsel med fornødne garantier på baggrund af
             standardbestemmelser om databeskyttelse (EU-Kommissionens Standardkontrakter).
-            Se til eksempel Microsofts ”Online Services Data Protection Addendum” (<a
-                    href="https://www.microsoft.com/en-us/licensing/product-licensing/products#OST">https://www.microsoft.com/en-us/licensing/product-licensing/products#OST</a>).
+            Se til eksempel Googles ”Data Processing and Security Terms” (<a
+                    href="https://firebase.google.com/terms/data-processing-terms">https://firebase.google.com/terms/data-processing-terms</a>).
         </p>
 
         <h4>4. Opbevaring af personoplysninger</h4>
         Min El har retningslinjer for, hvor længe vi opbevarer forskellige typer af personoplysninger.
         Retningslinjerne er fastsat på baggrund af lovgivningen, kategorierne af oplysninger samt formålet med
         behandlingen. Det betyder, at vi ikke gemmer dine personoplysninger i længere tid, end disse oplysninger tjener
-        det formål, hvormed de behandles. Oplysningerne som er lokalt opbevaret slettes, når du sletter appen. Endvidere
-        kan brugeren manuelt slette oplysningerne via telefonens indstillinger.
+        det formål, hvormed de behandles. Adresse, målepunkter, stamdata og nettariffer opbevares i vores database hos
+        Google Firebase, så længe du har en bruger i appen. Måledata (dit elforbrug) hentes fra Eloverblik, når du
+        bruger appen, og gemmes kun på din telefon. Du kan slette din bruger og alle tilknyttede oplysninger i appen
+        under Profil &gt; Avanceret &gt; Slet bruger. Oplysninger gemt på telefonen slettes, når du sletter appen.
+        Adgangen til dine data på Eloverblik tilbagekalder du på Eloverblik.dk.
 
         <h4>5. Dine rettigheder som registreret</h4>
         I forbindelse med vores behandling af personoplysninger om dig har du i henhold til databeskyttelsesforordningen
@@ -158,10 +162,78 @@
         <br/>
 
 
+        <h3>Vores behandling af personoplysninger ved brug af Min El app. </h3>
+
+        <div style="overflow: hidden;">
+            <p style="float: right; margin: 0;">Senest opdateret: 25-10-2026</p>
+        </div>
+
+        <h4>1. Dataansvar og kontaktoplysninger</h4>
+        <p>Min El er dataansvarlig for behandlingen af de personoplysninger, som vi modtager og registrerer om dig, når
+            du bruger Min El app. Kontaktoplysningerne fremgår ovenfor.</p>
+
+        <h4>2. Behandling af dine oplysninger</h4>
+        <h5>Formål</h5>
+        <ul>
+            <li>Levere appens funktioner, herunder prisalarmer og dine indstillinger</li>
+            <li>Finde og rette fejl i appen</li>
+            <li>Forbedre appen ud fra anonym brugsstatistik</li>
+            <li>Vise annoncer til brugere uden Pro eller Ingen reklamer</li>
+            <li>Håndtere køb af abonnementer</li>
+        </ul>
+
+        <h5>Kategorier af personoplysninger og behandlingsgrundlag</h5>
+        <p><u><i>Almindelige personoplysninger</i></u></p>
+        <p>Til formålet behandler vi følgende almindelige personoplysninger:</p>
+        <ul>
+            <li>Anonymt BrugerID, som oprettes automatisk første gang du åbner appen. Vi kender ikke dit navn eller din
+                e-mail ud fra det.</li>
+            <li>Dine indstillinger i appen, herunder sprog, prisområde, nettariffer, prisalarmer og notifikationstoken
+                til telefonen</li>
+            <li>Fejlrapporter fra appen (nedbrudsrapporter) med tekniske oplysninger om fejlen, din enhed og
+                appversion, knyttet til dit anonyme BrugerID</li>
+            <li>Brugsstatistik: hvilke skærme og funktioner der bruges, prisområde, indstillinger og om du har Pro,
+                knyttet til et installations-ID. Der sendes ikke navn, adresse eller elforbrug.</li>
+            <li>Annonce-ID og enhedsoplysninger, når der vises annoncer</li>
+            <li>Telefonens landekode fra SIM-kortet, som bruges på telefonen til at foreslå prisområde</li>
+            <li>En teknisk log over handlinger, der ændrer din bruger (fx tilkobling af adresse og ændring af
+                nettariffer), knyttet til dit anonyme BrugerID</li>
+        </ul>
+
+        <p>Prisalarmer, indstillinger og køb behandles med hjemmel i databeskyttelsesforordningens art. 6, stk. 1, litra b
+            (opfyldelse af aftale). Fejlrapporter, brugsstatistik og den tekniske log behandles med hjemmel i art. 6,
+            stk. 1, litra f (legitim interesse i at drive, sikre og forbedre appen). Annoncer behandles med hjemmel i
+            art. 6, stk. 1, litra f.</p>
+
+        <h4>3. Kategorier af modtagere</h4>
+        <p>Vi overlader personoplysninger til følgende databehandlere på grundlag af databehandleraftaler:</p>
+        <ul>
+            <li>Google Firebase og Google Cloud (database, login, notifikationer, logning og Firebase Analytics)</li>
+            <li>Google Firebase Crashlytics (fejlrapportering)</li>
+            <li>Amplitude (brugsstatistik)</li>
+            <li>Google AdMob (annoncer)</li>
+            <li>Google Play (betaling, anmeldelser og opdateringer af appen)</li>
+        </ul>
+        <p>Priser, prognoser og nettariffer henter vi fra Nord Pool, Carnot og Energi Data Service. Vi sender ingen
+            personoplysninger til dem.</p>
+        <p>Der kan ske overførsel af oplysningerne til tredjelande, som eksempelvis USA. I så fald sker overførslen med
+            fornødne garantier på baggrund af EU-Kommissionens Standardkontrakter.</p>
+
+        <h4>4. Opbevaring af personoplysninger</h4>
+        <p>Oplysninger i vores database opbevares, så længe du har en bruger i appen, og slettes, når du sletter din
+            bruger under Profil &gt; Avanceret &gt; Slet bruger. Fejlrapporter opbevares hos Google i op til 90 dage.
+            Den tekniske log opbevares i 12 måneder. Brugsstatistik opbevares hos Amplitude efter vores aftale med
+            Amplitude.</p>
+
+        <h4>5. Dine rettigheder og klagemuligheder</h4>
+        <p>Du har de samme rettigheder og klagemuligheder som beskrevet ovenfor.</p>
+
+        <br/>
+
         <h3>Vores behandling af personoplysninger ved kundesupport i Min El. </h3>
 
         <div style="overflow: hidden;">
-            <p style="float: right; margin: 0;">Senest opdateret: 11-04-2023</p>
+            <p style="float: right; margin: 0;">Senest opdateret: 25-10-2026</p>
         </div>
 
         <h4>1. Dataansvar og kontaktoplysninger</h4>
@@ -209,8 +281,8 @@
             Der kan i forbindelse med videregivelse af personoplysninger til vores databehandlere ske overførsel af
             disse oplysninger til tredjelande, som eksempelvis USA. I så fald sker denne overførsel med fornødne
             garantier på baggrund af standardbestemmelser om databeskyttelse (EU-Kommissionens Standardkontrakter). Se
-            til eksempel Microsofts ”Online Services Data Protection Addendum”
-            (<a href="https://www.microsoft.com/en-us/licensing/product-licensing/products#OST">https://www.microsoft.com/en-us/licensing/product-licensing/products#OST</a>).
+            til eksempel Googles ”Data Processing and Security Terms”
+            (<a href="https://firebase.google.com/terms/data-processing-terms">https://firebase.google.com/terms/data-processing-terms</a>).
         </p>
 
         <h4>4. Opbevaring af personoplysninger</h4>
